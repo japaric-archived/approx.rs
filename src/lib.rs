@@ -1,8 +1,8 @@
 //! An attempt at sane float comparisons
 //!
-//! First, you must read [this].
+//! First, you must read [this][1].
 //!
-//! [this]: http://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition
+//! [1]: http://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition
 //!
 //! # What's in the crate?
 //!
