@@ -14,6 +14,12 @@ impl<T> Eq<Rel<T>> for T where T: Float {
     }
 }
 
+impl<'a, T, U> Eq<Rel<T>> for &'a U where U: Eq<Rel<T>> {
+    fn approx_eq(&self, rhs: &&U, tolerance: Rel<T>) -> bool {
+        Eq::approx_eq(*self, *rhs, tolerance)
+    }
+}
+
 macro_rules! test {
     ($ty:ident) => {
         mod $ty {
