@@ -1,0 +1,16 @@
+[package]
+
+authors = ["Jorge Aparicio <japaricious@gmail.com>"]
+name = "approx"
+version = "0.0.0"
+
+[dev-dependencies]
+rand = "*"
+
+[dev-dependencies.quickcheck]
+branch = "rustup"
+git = "https://github.com/japaric/quickcheck"
+
+[dev-dependencies.quickcheck_macros]
+branch = "rustup"
+git = "https://github.com/japaric/quickcheck"
