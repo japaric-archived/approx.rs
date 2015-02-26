@@ -7,6 +7,7 @@ use {Eq, Ulp};
 
 /// Float distance in ULPs
 pub trait Distance: Float {
+    /// The units of least precision
     type Ulp: Int;
 
     /// Returns the absolute distance between two floats in ULPs
