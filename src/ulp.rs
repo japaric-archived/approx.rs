@@ -82,7 +82,7 @@ impl Distance for f64 {
     }
 }
 
-impl<T: Distance> Eq<Ulp<T::Ulp>> for T {
+impl<T> Eq<Ulp<T::Ulp>> for T where T: Distance {
     fn approx_eq(&self, rhs: &T, tol: Ulp<T::Ulp>) -> bool {
         let lhs = self;
 
