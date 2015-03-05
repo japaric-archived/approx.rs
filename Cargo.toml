@@ -8,9 +8,10 @@ version = "0.0.0"
 rand = "*"
 
 [dev-dependencies.quickcheck]
-branch = "rustup"
-git = "https://github.com/japaric/quickcheck"
+git = "https://github.com/burntsushi/quickcheck"
 
 [dev-dependencies.quickcheck_macros]
-branch = "rustup"
-git = "https://github.com/japaric/quickcheck"
+git = "https://github.com/burntsushi/quickcheck"
+
+[profile.test]
+debug = false
