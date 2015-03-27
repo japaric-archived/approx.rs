@@ -59,6 +59,7 @@
 //! large values `Abs` tolerance will be too small, but then the `Rel` method will kick in and
 //! catch what `Abs` missed.
 
+#![cfg_attr(test, allow(trivial_casts))]
 #![cfg_attr(test, plugin(quickcheck_macros))]
 #![deny(missing_docs)]
 #![deny(warnings)]
