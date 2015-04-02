@@ -1,4 +1,4 @@
-use std::num::Float;
+use float::Float;
 
 use {Eq, Rel};
 
@@ -23,8 +23,6 @@ impl<'a, T, U> Eq<Rel<T>> for &'a U where T: Float, U: Eq<Rel<T>> {
 macro_rules! test {
     ($ty:ident) => {
         mod $ty {
-            use std::num::Float;
-
             use quickcheck::TestResult;
 
             /// Given:

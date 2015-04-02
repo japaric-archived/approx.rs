@@ -1,4 +1,4 @@
-use std::num::Float;
+use float::Float;
 
 use {Abs, Eq};
 
@@ -22,8 +22,6 @@ impl<'a, T, U> Eq<Abs<T>> for &'a U where T: Float, U: Eq<Abs<T>> {
 macro_rules! test {
     ($ty:ident) => {
         mod $ty {
-            use std::num::Float;
-
             /// Given:
             /// - `x`: any float (minus `NaN`)
             /// - `tol`: any tolerance in the range `(0, 1]`

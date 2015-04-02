@@ -12,8 +12,6 @@
 //! tolerance.
 //! - Relative difference (`Rel`): Checks that the relative difference
 //! `|lhs - rhs| / max(lhs, rhs)` is within some tolerance.
-//! - ULP distance (`Ulp`): Checks that the "ULP" distance between `lhs` and `rhs` is within some
-//! tolerance.
 //!
 //! The recommended way to use this crate, is to use the `approx::eq` free function:
 //!
@@ -43,8 +41,8 @@
 //!
 //! There is no silver bullet, each method has it pros and cons. Some thoughts:
 //!
-//! - Both `Rel` and `Ulp` perform poorly when the values are near zero. `Abs` should be preferred
-//!   in those cases.
+//! - `Rel` performs poorly when the values are near zero. `Abs` should be preferred in those
+//!   cases.
 //! - Picking a good tolerance for `Abs` requires having an idea of how big/small the values
 //!   actually are.
 //! - You can combine the methods by `||`ing them, with this approach you can counter each other
@@ -63,19 +61,17 @@
 #![cfg_attr(test, plugin(quickcheck_macros))]
 #![deny(missing_docs)]
 #![deny(warnings)]
-#![feature(core)]
 #![feature(plugin)]
-#![feature(std_misc)]
 
 #[cfg(test)] extern crate quickcheck;
 #[cfg(test)] extern crate rand;
 
-use std::num::{Float, Int};
+extern crate float;
 
 mod abs;
 mod rel;
 
-pub mod ulp;
+use float::Float;
 
 /// Approximate equality
 pub trait Eq<Method> {
@@ -98,7 +94,9 @@ impl<T> Abs<T> where T: Float {
     ///
     /// Panics if `x` is negative
     pub fn tol(x: T) -> Abs<T> {
-        assert!(x >= Float::zero());
+        let _0 = T::from(0);
+
+        assert!(x >= _0);
 
         Abs(x)
     }
@@ -118,29 +116,11 @@ impl<T> Rel<T> where T: Float {
     ///
     /// Panics if `x` is negative
     pub fn tol(x: T) -> Rel<T> {
-        assert!(x >= Float::zero());
+        let _0 = T::from(0);
+
+        assert!(x >= _0);
 
         Rel(x)
-    }
-}
-
-/// "Unit of Least Precision" distance
-///
-/// Note: This method breaks down when the values are near zero
-#[derive(Copy)]
-pub struct Ulp<T>(T);
-
-// TODO(rust-lang/rfcs#735) move this `impl` to the `ulp` module
-impl<T> Ulp<T> where T: Int {
-    /// Creates a ULP tolerance
-    ///
-    /// # Panics
-    ///
-    /// Panics if `x` is negative
-    pub fn tol(x: T) -> Ulp<T> {
-        assert!(x >= Int::zero());
-
-        Ulp(x)
     }
 }
 
