@@ -83,7 +83,7 @@ pub trait Eq<Method> {
 /// Absolute difference
 ///
 /// Note: You should prefer this method when the values are near zero
-#[derive(Copy)]
+#[derive(Clone, Copy)]
 pub struct Abs<T>(T) where T: Float;
 
 // TODO(rust-lang/rfcs#735) move this `impl` to the `abs` module
@@ -105,7 +105,7 @@ impl<T> Abs<T> where T: Float {
 /// Relative difference
 ///
 /// Note: This method breaks down when the values are near zero
-#[derive(Copy)]
+#[derive(Clone, Copy)]
 pub struct Rel<T>(T) where T: Float;
 
 // TODO(rust-lang/rfcs#735) move this `impl` to the `rel` module
