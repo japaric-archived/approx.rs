@@ -1,23 +1,20 @@
-use float::Float;
-
 use {Abs, Eq};
 
-impl<T> Eq<Abs<T>> for T where T: Float {
-    fn approx_eq(&self, rhs: &T, tolerance: Abs<T>) -> bool {
-        let &lhs = self;
-        let &rhs = rhs;
+macro_rules! impls {
+    ($($ty:ident),+) => {
+        $(
+            impl Eq<Abs<$ty>> for $ty {
+                fn approx_eq(&self, rhs: &$ty, tolerance: Abs<$ty>) -> bool {
+                    let diff = (self - rhs).abs();
 
-        let diff = (lhs - rhs).abs();
-
-        diff <= tolerance.0
+                    diff <= tolerance.0
+                }
+            }
+         )+
     }
 }
 
-impl<'a, T, U> Eq<Abs<T>> for &'a U where T: Float, U: Eq<Abs<T>> {
-    fn approx_eq(&self, rhs: &&U, tolerance: Abs<T>) -> bool {
-        Eq::approx_eq(*self, *rhs, tolerance)
-    }
-}
+impls!(f32, f64);
 
 macro_rules! test {
     ($ty:ident) => {

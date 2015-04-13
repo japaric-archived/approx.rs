@@ -80,6 +80,13 @@ pub trait Eq<Method> {
     fn approx_eq(&self, rhs: &Self, tolerance: Method) -> bool;
 }
 
+// Auto-dereferencing
+impl<'a, T, M> Eq<M> for &'a T where T: Eq<M> {
+    fn approx_eq(&self, rhs: &&T, tolerance: M) -> bool {
+        Eq::approx_eq(*self, *rhs, tolerance)
+    }
+}
+
 /// Absolute difference
 ///
 /// Note: You should prefer this method when the values are near zero
