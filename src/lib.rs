@@ -66,12 +66,12 @@
 #[cfg(test)] extern crate quickcheck;
 #[cfg(test)] extern crate rand;
 
-extern crate float;
+extern crate floaty;
 
 mod abs;
 mod rel;
 
-use float::Float;
+use floaty::Floaty;
 
 /// Approximate equality
 pub trait Eq<Method> {
@@ -91,17 +91,17 @@ impl<'a, T, M> Eq<M> for &'a T where T: Eq<M> {
 ///
 /// Note: You should prefer this method when the values are near zero
 #[derive(Clone, Copy)]
-pub struct Abs<T>(T) where T: Float;
+pub struct Abs<T>(T) where T: Floaty;
 
 // TODO(rust-lang/rfcs#735) move this `impl` to the `abs` module
-impl<T> Abs<T> where T: Float {
+impl<T> Abs<T> where T: Floaty {
     /// Creates an absolute difference tolerance
     ///
     /// # Panics
     ///
     /// Panics if `x` is negative
     pub fn tol(x: T) -> Abs<T> {
-        let _0 = T::from(0);
+        let _0 = T::cast(0);
 
         assert!(x >= _0);
 
@@ -113,17 +113,17 @@ impl<T> Abs<T> where T: Float {
 ///
 /// Note: This method breaks down when the values are near zero
 #[derive(Clone, Copy)]
-pub struct Rel<T>(T) where T: Float;
+pub struct Rel<T>(T) where T: Floaty;
 
 // TODO(rust-lang/rfcs#735) move this `impl` to the `rel` module
-impl<T> Rel<T> where T: Float {
+impl<T> Rel<T> where T: Floaty {
     /// Creates a relative difference tolerance
     ///
     /// # Panics
     ///
     /// Panics if `x` is negative
     pub fn tol(x: T) -> Rel<T> {
-        let _0 = T::from(0);
+        let _0 = T::cast(0);
 
         assert!(x >= _0);
 

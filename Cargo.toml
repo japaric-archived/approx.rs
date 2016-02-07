@@ -7,7 +7,7 @@ version = "0.0.0"
 [dev-dependencies]
 rand = "*"
 
-[dependencies.float]
+[dependencies.floaty]
 git = "https://github.com/japaric/float.rs"
 
 [dev-dependencies.quickcheck]
